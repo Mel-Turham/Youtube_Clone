@@ -7,6 +7,7 @@ import more_icon from '../../assets/more.png';
 import notification_icon from '../../assets/notification.png';
 import profile_icon from '../../assets/jack.png';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 // const apiKey = 'AIzaSyDVXBKOWzHEP1YGPPTpc66NibPvy26C4Vg';
 const Navbar = ({ setSidebar }) => {
 	const handleOnclik = () => {
@@ -22,7 +23,9 @@ const Navbar = ({ setSidebar }) => {
 					loading='lazy'
 					onClick={handleOnclik}
 				/>
-				<img className='logo' src={logo} alt='Logo' loading='lazy' />
+				<Link to='/'>
+					<img className='logo' src={logo} alt='Logo' loading='lazy' />
+				</Link>
 			</div>
 			<div className='nav-middle flex-div'>
 				<div className='search-box flex-div'>

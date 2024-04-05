@@ -8,7 +8,6 @@ import notification_icon from '../../assets/notification.png';
 import profile_icon from '../../assets/jack.png';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-// const apiKey = 'AIzaSyDVXBKOWzHEP1YGPPTpc66NibPvy26C4Vg';
 const Navbar = ({ setSidebar }) => {
 	const handleOnclik = () => {
 		setSidebar((prevState) => !prevState);

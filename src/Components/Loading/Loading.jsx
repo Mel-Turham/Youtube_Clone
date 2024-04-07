@@ -1,6 +1,5 @@
 import { MutatingDots } from 'react-loader-spinner';
 import './Loading.css';
-console.log(MutatingDots);
 const Loading = () => {
 	return (
 		<div className='wrapperLoading'>
@@ -8,11 +7,12 @@ const Loading = () => {
 				visible={true}
 				height='100'
 				width='100'
-				color='#080808'
-				secondaryColor='#080808'
+				color='#000'
+				secondaryColor='#000'
 				radius='12.5'
 				ariaLabel='mutating-dots-loading'
 			/>
+			<h4>Loading...</h4>
 		</div>
 	);
 };

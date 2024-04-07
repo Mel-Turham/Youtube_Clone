@@ -24,7 +24,6 @@ const PlayVideo = ({ videoId }) => {
 				const response = await fetch(videoUrl);
 				if (!response.ok) throw new Error('Somthing is wrong');
 				const data = await response.json();
-				console.log(data);
 				setApiData(data.items[0]);
 			} catch (error) {
 				console.error(error.message);
@@ -49,7 +48,6 @@ const PlayVideo = ({ videoId }) => {
 
 				const data = await response.json();
 				setChannelData(data.items[0]);
-				console.log(data);
 				setIsLoading(false);
 			} catch (error) {
 				console.error('Error fetching channel data:', error);
@@ -61,6 +59,21 @@ const PlayVideo = ({ videoId }) => {
 			fecthChannel();
 		}
 	}, [apiData]);
+
+	useEffect(() => {
+		const fecthComments = async () => {
+			try {
+				const commentUrl = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`;
+				const response = await fetch(commentUrl);
+				if (!response.ok) throw new Error('Comments are not fetch');
+				const results = await response.json();
+				console.log(results.items[0]);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+		fecthComments();
+	}, [videoId]);
 
 	if (isLoading) return <Loading />;
 
@@ -114,7 +127,6 @@ const PlayVideo = ({ videoId }) => {
 							}
 							alt={apiData?.snippet.channelTitle}
 						/>
-						{console.log(channelData?.snippet?.thumbnails?.default?.url)}
 						<div>
 							<p>{apiData?.snippet.channelTitle}</p>
 							<span>
@@ -139,101 +151,6 @@ const PlayVideo = ({ videoId }) => {
 								: '244'}{' '}
 							Comments
 						</h4>
-						<div className='comments'>
-							<img src={user_profile} alt='' loading='lazy' />
-							<div>
-								<h3>John Doe</h3>
-								<span>1 day ago</span>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-									numquam reprehenderit quidem, atque aliquam voluptas
-									inventore, quibusdam, deserunt nemo architecto recusandae
-									obcaecati enim quo commodi. Totam exercitationem animi dicta
-									ipsum?
-								</p>
-								<div className='comment-action'>
-									<img src={like} alt='' loading='lazy' />
-									<span>244</span>
-									<img src={dislike} alt='' loading='lazy' />
-								</div>
-							</div>
-						</div>
-						<div className='comments'>
-							<img src={user_profile} alt='' loading='lazy' />
-							<div>
-								<h3>John Doe</h3>
-								<span>1 day ago</span>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-									numquam reprehenderit quidem, atque aliquam voluptas
-									inventore, quibusdam, deserunt nemo architecto recusandae
-									obcaecati enim quo commodi. Totam exercitationem animi dicta
-									ipsum?
-								</p>
-								<div className='comment-action'>
-									<img src={like} alt='' loading='lazy' />
-									<span>244</span>
-									<img src={dislike} alt='' loading='lazy' />
-								</div>
-							</div>
-						</div>
-						<div className='comments'>
-							<img src={user_profile} alt='' loading='lazy' />
-							<div>
-								<h3>John Doe</h3>
-								<span>1 day ago</span>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-									numquam reprehenderit quidem, atque aliquam voluptas
-									inventore, quibusdam, deserunt nemo architecto recusandae
-									obcaecati enim quo commodi. Totam exercitationem animi dicta
-									ipsum?
-								</p>
-								<div className='comment-action'>
-									<img src={like} alt='' loading='lazy' />
-									<span>244</span>
-									<img src={dislike} alt='' loading='lazy' />
-								</div>
-							</div>
-						</div>
-						<div className='comments'>
-							<img src={user_profile} alt='' loading='lazy' />
-							<div>
-								<h3>John Doe</h3>
-								<span>1 day ago</span>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-									numquam reprehenderit quidem, atque aliquam voluptas
-									inventore, quibusdam, deserunt nemo architecto recusandae
-									obcaecati enim quo commodi. Totam exercitationem animi dicta
-									ipsum?
-								</p>
-								<div className='comment-action'>
-									<img src={like} alt='' loading='lazy' />
-									<span>244</span>
-									<img src={dislike} alt='' loading='lazy' />
-								</div>
-							</div>
-						</div>
-						<div className='comments'>
-							<img src={user_profile} alt='' loading='lazy' />
-							<div>
-								<h3>John Doe</h3>
-								<span>1 day ago</span>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-									numquam reprehenderit quidem, atque aliquam voluptas
-									inventore, quibusdam, deserunt nemo architecto recusandae
-									obcaecati enim quo commodi. Totam exercitationem animi dicta
-									ipsum?
-								</p>
-								<div className='comment-action'>
-									<img src={like} alt='' loading='lazy' />
-									<span>244</span>
-									<img src={dislike} alt='' loading='lazy' />
-								</div>
-							</div>
-						</div>
 						<div className='comments'>
 							<img src={user_profile} alt='' loading='lazy' />
 							<div>

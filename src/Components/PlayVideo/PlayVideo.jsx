@@ -91,7 +91,7 @@ const PlayVideo = ({ videoId }) => {
 						/>
 						<div>
 							<p>{apiData?.snippet.channelTitle}</p>
-							<span>{valueConverter(channelData?.statistics?.subscriberCount)}</span>
+							<span>{valueConverter(channelData?.statistics?.subscriberCount)} Subscribers</span>
 						</div>
 
 						<button>Subcribe</button>

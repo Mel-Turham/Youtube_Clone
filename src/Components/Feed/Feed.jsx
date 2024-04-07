@@ -1,28 +1,42 @@
 import './Feed.css';
 import { Link } from 'react-router-dom';
-import { API_KEY, valueConverter } from '../../index';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-const Feed = ({ category }) => {
-	const [data, setData] = useState([]);
+import { valueConverter , API_KEY} from '../../index';
+import Loading from '../Loading/Loading';
 
+const Feed = ({ category }) => {
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(null);
+	const [data, setData] = useState([]);
 	useEffect(() => {
 		const fetchData = async () => {
-			const videoUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=200&maxWidth=200&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
 			try {
-				await fetch(videoUrl)
-					.then((rep) => rep.json())
-					.then((resutls) => setData(resutls.items));
+				const videoUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=200&maxWidth=200&regionCode=US&videoCategoryId=${category}&key=${API_KEY}`;
+				const response = await fetch(videoUrl);
+				if (!response.ok) throw new Error('Network response was not ok');
+				const data = await response.json();
+				setData(data.items);
+				setIsLoading(false);
 			} catch (error) {
-				console.log(error);
+				console.error('Error fectching data', error);
+				setError(error.message);
+				setIsLoading(false);
 			}
 		};
 		fetchData();
 	}, [category]);
+
+	if (isLoading) {
+		return <Loading/>;
+	}
+	if (error) {
+		return <h1>{error}</h1>;
+	}
+
 	return (
 		<div className='feed'>
-			{!data && <h2 className='loading'>Chargemant....</h2>}
 			{data && (
 				<>
 					{data.map((item) => {

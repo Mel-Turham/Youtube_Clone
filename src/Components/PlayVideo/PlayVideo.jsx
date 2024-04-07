@@ -8,22 +8,26 @@ import user_profile from '../../assets/user_profile.jpg';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { API_KEY, likesConverts, valueConverter } from '../../index';
+import { likesConverts, valueConverter, API_KEY } from '../../index';
+import Loading from '../Loading/Loading';
 
 const PlayVideo = ({ videoId }) => {
 	const [apiData, setApiData] = useState(null);
-
 	const [channelData, setChannelData] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
 		const videoData = async () => {
 			try {
 				const videoUrl = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${videoId}&key=${API_KEY}`;
-				await fetch(videoUrl)
-					.then((response) => response.json())
-					.then((results) => setApiData(results.items[0]));
+				const response = await fetch(videoUrl);
+				if (!response.ok) throw new Error('Somthing is wrong');
+				const data = await response.json();
+				console.log(data);
+				setApiData(data.items[0]);
 			} catch (error) {
-				console.log(error);
+				console.error(error.message);
 			}
 		};
 		videoData();
@@ -32,28 +36,47 @@ const PlayVideo = ({ videoId }) => {
 	useEffect(() => {
 		const fecthChannel = async () => {
 			try {
-				const apiChannelUrl = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData?.snippet?.channelId}&key=${API_KEY}`;
-				await fetch(apiChannelUrl)
-					.then((response) => response.json())
-					.then((results) => setChannelData(results.items[0]));
+				if (!apiData || !apiData.snippet || !apiData.snippet.channelId) {
+					throw new Error('Channel ID not available');
+				}
+
+				const apiChannelUrl = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${apiData.snippet.channelId}&key=${API_KEY}`;
+				const response = await fetch(apiChannelUrl);
+
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+
+				const data = await response.json();
+				setChannelData(data.items[0]);
+				console.log(data);
+				setIsLoading(false);
 			} catch (error) {
-				console.log(error);
+				console.error('Error fetching channel data:', error);
+				setError(error.message);
+				setIsLoading(false);
 			}
 		};
-		fecthChannel();
+		if (apiData) {
+			fecthChannel();
+		}
 	}, [apiData]);
+
+	if (isLoading) return <Loading />;
+
+	if (error) return <h1>{error}</h1>;
 
 	return (
 		<div className='play-video'>
 			{/* <video src={video1} autoPlay controls /> */}
-			{!apiData && <h1 className='loading'>Chargement...</h1>}
+
 			{apiData && (
 				<>
 					<iframe
 						src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
-						frameBorder='0'
 						allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
 						referrerPolicy='strict-origin-when-cross-origin'
+						frameBorder={0}
 						allowFullScreen
 					/>
 					<h3>{apiData ? apiData.snippet.title : 'Title not available'}</h3>
@@ -85,13 +108,19 @@ const PlayVideo = ({ videoId }) => {
 					<div className='publisher'>
 						<img
 							src={
-								channelData ? channelData?.snippet?.thumbnails?.default.url : ''
+								channelData
+									? channelData?.snippet?.thumbnails?.default.url
+									: { user_profile }
 							}
 							alt={apiData?.snippet.channelTitle}
 						/>
+						{console.log(channelData?.snippet?.thumbnails?.default?.url)}
 						<div>
 							<p>{apiData?.snippet.channelTitle}</p>
-							<span>{valueConverter(channelData?.statistics?.subscriberCount)} Subscribers</span>
+							<span>
+								{valueConverter(channelData?.statistics?.subscriberCount)}{' '}
+								Subscribers
+							</span>
 						</div>
 
 						<button>Subcribe</button>

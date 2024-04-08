@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { valueConverter , API_KEY} from '../../index';
+import { valueConverter, API_KEY } from '../../index';
 import Loading from '../Loading/Loading';
 
 const Feed = ({ category }) => {
@@ -29,7 +29,7 @@ const Feed = ({ category }) => {
 	}, [category]);
 
 	if (isLoading) {
-		return <Loading/>;
+		return <Loading />;
 	}
 	if (error) {
 		return <h1>{error}</h1>;
@@ -47,7 +47,7 @@ const Feed = ({ category }) => {
 								className='card'
 							>
 								<img src={item.snippet.thumbnails.medium.url} alt='' />
-								<h2>{item?.snippet?.title}</h2>
+								<h2>{item?.snippet?.title.slice(0, 30) + '...'}</h2>
 								<h3>{item?.snippet?.channelTitle}</h3>
 								<p>
 									{valueConverter(item?.statistics?.viewCount)} views &bull;{' '}

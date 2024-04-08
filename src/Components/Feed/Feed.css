@@ -40,3 +40,13 @@
 	color: #000;
 	text-align: center;
 }
+
+.feed .title-video {
+	/* Limiter le texte à deux lignes */
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 1; /* Nombre de lignes */
+	-webkit-box-orient: vertical;
+	/* Ajouter des points de suspension à la fin */
+	text-overflow: ellipsis;
+}

@@ -47,7 +47,7 @@ const Feed = ({ category }) => {
 								className='card'
 							>
 								<img src={item.snippet.thumbnails.medium.url} alt='' />
-								<h2>{item?.snippet?.title.slice(0, 30) + '...'}</h2>
+								<h2 className='title-video'>{item?.snippet?.title}</h2>
 								<h3>{item?.snippet?.channelTitle}</h3>
 								<p>
 									{valueConverter(item?.statistics?.viewCount)} views &bull;{' '}

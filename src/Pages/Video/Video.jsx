@@ -4,11 +4,12 @@ import Recommended from '../../Components/Recommended/Recommended';
 import './Video.css';
 
 const Video = () => {
-	const { videoId, categoryId } = useParams();
+	console.log(useParams());
+	const { videoId, categoruId } = useParams();
 	return (
 		<div className='play-container'>
 			<PlayVideo videoId={videoId} />
-			<Recommended />
+			<Recommended categoryId={categoruId} />
 		</div>
 	);
 };

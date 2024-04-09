@@ -46,7 +46,7 @@ const Feed = ({ category }) => {
 								to={`video/${item.snippet.categoryId}/${item.id}`}
 								className='card'
 							>
-								<img src={item.snippet.thumbnails.medium.url} alt='' />
+								<img src={item.snippet.thumbnails.medium.url} alt='' loading='lazy'/>
 								<h2 className='title-video'>{item?.snippet?.title}</h2>
 								<h3>{item?.snippet?.channelTitle}</h3>
 								<p>

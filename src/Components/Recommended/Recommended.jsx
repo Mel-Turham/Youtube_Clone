@@ -1,6 +1,7 @@
 import './Recommended.css';
 import { useEffect, useState } from 'react';
 import { API_KEY, valueConverter } from '../../index';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const Recommended = ({ categoryId }) => {
@@ -8,22 +9,23 @@ const Recommended = ({ categoryId }) => {
 	const [isLoading, setIsLoding] = useState(true);
 	const [error, setError] = useState(null);
 
-	const fectData = async () => {
-		try {
-			const related_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&maxWidth=200&regionCode=US&videoCategoryId=${categoryId}&key=${API_KEY}`;
-			const response = await fetch(related_url);
-			if (!response.ok) throw new Error('Error fetch data');
-			setIsLoding(false);
-			const data = await response.json();
-			setApiData(data.items);
-			console.log(data.items);
-		} catch (error) {
-			console.error('Error fetching data', error);
-			setError(error.message);
-			setIsLoding(false);
-		}
-	};
+
 	useEffect(() => {
+    const fectData = async () => {
+      try {
+        const related_url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=50&maxWidth=200&regionCode=US&videoCategoryId=${categoryId}&key=${API_KEY}`;
+        const response = await fetch(related_url);
+        if (!response.ok) throw new Error('Error fetch data');
+        setIsLoding(false);
+        const data = await response.json();
+        setApiData(data.items);
+        console.log(data.items);
+      } catch (error) {
+        console.error('Error fetching data', error);
+        setError(error.message);
+        setIsLoding(false);
+      }
+    };
 		fectData();
 	}, [categoryId]);
 
@@ -37,7 +39,7 @@ const Recommended = ({ categoryId }) => {
 		<aside className='recommended'>
 			{apiData.map((item) => {
 				return (
-					<div key={item.id} className='side-video-list'>
+					<Link to={`/video/${item.snippet.categoryId}/${item.id}`} key={item.id} className='side-video-list'>
 						<img
 							src={item?.snippet?.thumbnails.medium?.url}
 							alt={item.snippet.title}
@@ -48,7 +50,7 @@ const Recommended = ({ categoryId }) => {
 							<p>{item?.snippet?.channelTitle}</p>
 							<p>{valueConverter(item?.statistics.viewCount)} Views</p>
 						</div>
-					</div>
+					</Link>
 				);
 			})}
 		</aside>

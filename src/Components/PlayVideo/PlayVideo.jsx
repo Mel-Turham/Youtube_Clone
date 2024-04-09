@@ -14,6 +14,7 @@ import Loading from '../Loading/Loading';
 const PlayVideo = ({ videoId }) => {
 	const [apiData, setApiData] = useState(null);
 	const [channelData, setChannelData] = useState(null);
+	const [comments, setComments] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 
@@ -63,11 +64,11 @@ const PlayVideo = ({ videoId }) => {
 	useEffect(() => {
 		const fecthComments = async () => {
 			try {
-				const commentUrl = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${videoId}&key=${API_KEY}`;
+				const commentUrl = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&maxResults=50&videoId=${videoId}&key=${API_KEY}`;
 				const response = await fetch(commentUrl);
 				if (!response.ok) throw new Error('Comments are not fetch');
 				const results = await response.json();
-				console.log(results.items[0]);
+				setComments(results.items);
 			} catch (error) {
 				console.error(error);
 			}
@@ -151,25 +152,26 @@ const PlayVideo = ({ videoId }) => {
 								: '244'}{' '}
 							Comments
 						</h4>
-						<div className='comments'>
-							<img src={user_profile} alt='' loading='lazy' />
-							<div>
-								<h3>John Doe</h3>
-								<span>1 day ago</span>
-								<p>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. At
-									numquam reprehenderit quidem, atque aliquam voluptas
-									inventore, quibusdam, deserunt nemo architecto recusandae
-									obcaecati enim quo commodi. Totam exercitationem animi dicta
-									ipsum?
-								</p>
-								<div className='comment-action'>
-									<img src={like} alt='' loading='lazy' />
-									<span>244</span>
-									<img src={dislike} alt='' loading='lazy' />
+						{comments.map((comment) => {
+							return (
+								<div className='comments' key={comment.id}>
+									<img src={comment.snippet.topLevelComment.snippet.authorProfileImageUrl} alt={comment.snippet.topLevelComment.snippet.authorDisplayName} loading='lazy' />
+									<div>
+										<h3>{comment.snippet.topLevelComment.snippet.authorDisplayName}
+										<span>1 day ago</span>
+										</h3>
+										<p>
+											{comment.snippet.topLevelComment.snippet.textDisplay}
+										</p>
+										<div className='comment-action'>
+											<img src={like} alt='' loading='lazy' />
+											<span>{valueConverter(comment.snippet.topLevelComment.snippet.likeCount)}</span>
+											<img src={dislike} alt='' loading='lazy' />
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
+							);
+						})}
 					</div>
 				</>
 			)}

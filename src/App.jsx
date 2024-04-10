@@ -10,6 +10,7 @@ const App = () => {
 		<main>
 			<Navbar  setSidebar={setSidebar}/>
 			<Routes>
+				<Route index element={<Home sidebar={sidebar}/>}/>
 				<Route path='/' element={<Home sidebar={sidebar}/>} />
 				<Route path='/video/:categoruId/:videoId' element={<Video />} />
 			</Routes>

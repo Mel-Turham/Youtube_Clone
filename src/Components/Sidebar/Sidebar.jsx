@@ -88,23 +88,23 @@ const Sidebar = ({ sidebar, category, setCategory }) => {
 				<h3>Subcribed</h3>
 				<div className='side-link'>
 					<img src={jack} alt='jack image' />
-					<p>PewDiePie</p>
+					<p>Alberto</p>
 				</div>
 				<div className='side-link'>
 					<img src={simon} alt='simon image' />
-					<p>MrBeast</p>
+					<p>William</p>
 				</div>
 				<div className='side-link'>
 					<img src={tom} alt='tom image' />
-					<p>Justin Bieber</p>
+					<p>Adrien</p>
 				</div>
 				<div className='side-link'>
 					<img src={megan} alt='megan image' />
-					<p>5-minute Crafts</p>
+					<p>Talia</p>
 				</div>
 				<div className='side-link'>
 					<img src={cameron} alt='cameron image' />
-					<p>5-minute Crafts</p>
+					<p>Melvine</p>
 				</div>
 			</div>
 		</aside>

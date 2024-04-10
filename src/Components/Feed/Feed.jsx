@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { valueConverter, API_KEY } from '../../index';
 import Loading from '../Loading/Loading';
+import Error from '../../Error/Error';
 
 const Feed = ({ category }) => {
 	const [isLoading, setIsLoading] = useState(true);
@@ -32,7 +33,7 @@ const Feed = ({ category }) => {
 		return <Loading />;
 	}
 	if (error) {
-		return <h1>{error}</h1>;
+		return <Error errorMessage={error} />;
 	}
 
 	return (
@@ -46,7 +47,11 @@ const Feed = ({ category }) => {
 								to={`video/${item.snippet.categoryId}/${item.id}`}
 								className='card'
 							>
-								<img src={item.snippet.thumbnails.medium.url} alt='' loading='lazy'/>
+								<img
+									src={item.snippet.thumbnails.medium.url}
+									alt=''
+									loading='lazy'
+								/>
 								<h2 className='title-video'>{item?.snippet?.title}</h2>
 								<h3>{item?.snippet?.channelTitle}</h3>
 								<p>

@@ -1,0 +1,18 @@
+.error-message{
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-color: #fff;
+  display: grid;
+  place-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+}
+
+.error-text{
+  font-size: clamp(1.5rem, 7vw, 2.5rem);
+  text-transform: uppercase;
+  font-weight: 600;
+}

@@ -1,11 +1,15 @@
 nav {
 	padding: 10px 2%;
+	display: flex;
 	justify-content: space-between;
+	align-items: center;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 	background: #fff;
-	position: sticky;
+	position: fixed;
 	top: 0;
+	left: 0;
 	z-index: 10;
+	width: 100%;
 }
 
 .nav-left .menu-icon {
@@ -19,28 +23,44 @@ nav {
 
 .nav-middle .search-box {
 	border: 1px solid #ccc;
-	margin-right: 15px; 
+	margin-right: 15px;
 	padding: 8px 15px;
 	border-radius: 25px;
 }
 
-.nav-middle .search-box input{
-   width: 400px;
-   border: 0;
-   outline: 0;
-   background: transparent;
-   
+.nav-middle .search-box input {
+	width: 400px;
+	border: 0;
+	outline: 0;
+	background: transparent;
 }
-.nav-middle .search-box img{
-  width: 15px;
-}
-
-.nav-right img{
-  width: 25px;
-  margin-right: 25px;
+.nav-middle .search-box img {
+	width: 15px;
 }
 
-.nav-right .user-icon{
-  width: 35px;
-  border-radius: 50%;
+.nav-right img {
+	width: 25px;
+	margin-right: 25px;
+}
+
+.nav-right .user-icon {
+	width: 35px;
+	border-radius: 50%;
+}
+
+/* media query */
+
+@media (max-width: 676px) {
+	nav .nav-left .menu-icon {
+		display: none;
+	}
+
+	nav .nav-middle {
+		display: none;
+	}
+
+	nav .nav-right .user-icon {
+		display: block;
+		margin-right: 5px;
+	}
 }

@@ -19,7 +19,6 @@ const Recommended = ({ categoryId }) => {
         setIsLoding(false);
         const data = await response.json();
         setApiData(data.items);
-        console.log(data.items);
       } catch (error) {
         console.error('Error fetching data', error);
         setError(error.message);

@@ -4,7 +4,6 @@ import Recommended from '../../Components/Recommended/Recommended';
 import './Video.css';
 
 const Video = () => {
-	console.log(useParams());
 	const { videoId, categoruId } = useParams();
 	return (
 		<div className='play-container'>

@@ -1,8 +1,15 @@
-.play-container{
-  background-color: #f9f9f9;
-  padding:20px 2%;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
+.play-container {
+	background-color: #f9f9f9;
+	padding-top: calc(74.67px);
+	padding-inline: 25px;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
 }
 
+@media (max-width: 676px) {
+	.play-container {
+		width: 100%;
+		padding-inline: 15px;
+	}
+}

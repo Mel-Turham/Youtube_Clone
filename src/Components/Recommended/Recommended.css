@@ -38,3 +38,11 @@
 	/* Ajouter des points de suspension à la fin */
 	text-overflow: ellipsis;
 }
+
+/* media query */
+
+@media(max-width:676px){
+  .recommended{
+    display: none;
+  }
+}

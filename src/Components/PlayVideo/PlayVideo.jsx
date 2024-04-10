@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { likesConverts, valueConverter, API_KEY } from '../../index';
 import Loading from '../Loading/Loading';
+import Error from '../../Error/Error';
 
 const PlayVideo = ({ videoId }) => {
 	const [apiData, setApiData] = useState(null);
@@ -70,7 +71,8 @@ const PlayVideo = ({ videoId }) => {
 				const results = await response.json();
 				setComments(results.items);
 			} catch (error) {
-				console.error(error);
+				console.error(error.message);
+				setError(error.message)
 			}
 		};
 		fecthComments();
@@ -78,7 +80,7 @@ const PlayVideo = ({ videoId }) => {
 
 	if (isLoading) return <Loading />;
 
-	if (error) return <h1>{error}</h1>;
+	if (error) return <h1>{Error}</h1>;
 
 	return (
 		<div className='play-video'>

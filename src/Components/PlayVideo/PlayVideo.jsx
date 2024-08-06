@@ -8,7 +8,7 @@ import user_profile from '../../assets/user_profile.jpg';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { likesConverts, valueConverter, API_KEY } from '../../index';
+import { likesConverts, valueConverter } from '../../index';
 import Loading from '../Loading/Loading';
 import Error from '../../Error/Error';
 
@@ -18,6 +18,7 @@ const PlayVideo = ({ videoId }) => {
 	const [comments, setComments] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
+	const API_KEY = import.meta.env.API_KEY;
 
 	useEffect(() => {
 		const videoData = async () => {
@@ -72,7 +73,7 @@ const PlayVideo = ({ videoId }) => {
 				setComments(results.items);
 			} catch (error) {
 				console.error(error.message);
-				setError(error.message)
+				setError(error.message);
 			}
 		};
 		fecthComments();
@@ -157,17 +158,32 @@ const PlayVideo = ({ videoId }) => {
 						{comments.map((comment) => {
 							return (
 								<div className='comments' key={comment.id}>
-									<img src={comment.snippet.topLevelComment.snippet.authorProfileImageUrl} alt={comment.snippet.topLevelComment.snippet.authorDisplayName} loading='lazy' />
+									<img
+										src={
+											comment.snippet.topLevelComment.snippet
+												.authorProfileImageUrl
+										}
+										alt={
+											comment.snippet.topLevelComment.snippet.authorDisplayName
+										}
+										loading='lazy'
+									/>
 									<div>
-										<h3>{comment.snippet.topLevelComment.snippet.authorDisplayName}
-										<span>1 day ago</span>
+										<h3>
+											{
+												comment.snippet.topLevelComment.snippet
+													.authorDisplayName
+											}
+											<span>1 day ago</span>
 										</h3>
-										<p>
-											{comment.snippet.topLevelComment.snippet.textDisplay}
-										</p>
+										<p>{comment.snippet.topLevelComment.snippet.textDisplay}</p>
 										<div className='comment-action'>
 											<img src={like} alt='' loading='lazy' />
-											<span>{valueConverter(comment.snippet.topLevelComment.snippet.likeCount)}</span>
+											<span>
+												{valueConverter(
+													comment.snippet.topLevelComment.snippet.likeCount,
+												)}
+											</span>
 											<img src={dislike} alt='' loading='lazy' />
 										</div>
 									</div>

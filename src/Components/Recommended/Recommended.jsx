@@ -1,6 +1,6 @@
 import './Recommended.css';
 import { useEffect, useState } from 'react';
-import { valueConverter } from '../../index';
+import { valueConverter, API_KEY } from '../../index';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,7 @@ const Recommended = ({ categoryId }) => {
 	const [apiData, setApiData] = useState([]);
 	const [isLoading, setIsLoding] = useState(true);
 	const [error, setError] = useState(null);
-	const API_KEY = import.meta.env.API_KEY;
+	// const API_KEY = import.meta.env.API_KEY;
 
 	useEffect(() => {
 		const fectData = async () => {

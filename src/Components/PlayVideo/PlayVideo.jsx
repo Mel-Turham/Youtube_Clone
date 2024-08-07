@@ -8,7 +8,7 @@ import user_profile from '../../assets/user_profile.jpg';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { likesConverts, valueConverter } from '../../index';
+import { likesConverts, valueConverter, API_KEY } from '../../index';
 import Loading from '../Loading/Loading';
 import Error from '../../Error/Error';
 
@@ -18,7 +18,7 @@ const PlayVideo = ({ videoId }) => {
 	const [comments, setComments] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
-	const API_KEY = import.meta.env.API_KEY;
+	// const API_KEY = import.meta.env.API_KEY;
 
 	useEffect(() => {
 		const videoData = async () => {

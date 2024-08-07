@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { valueConverter } from '../../index';
+import { valueConverter, API_KEY } from '../../index';
 import Loading from '../Loading/Loading';
 import Error from '../../Error/Error';
 
@@ -11,7 +11,8 @@ const Feed = ({ category }) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [data, setData] = useState([]);
-	const API_KEY = import.meta.env.API_KEY;
+	// const API_KEY = import.meta.env.VITE_API_KEY;
+	// console.log(API_KEY);
 	useEffect(() => {
 		const fetchData = async () => {
 			try {

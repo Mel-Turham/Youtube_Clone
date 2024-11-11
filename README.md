@@ -21,7 +21,7 @@
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/Mel-Turham/Youtube_Clone.git
+   git clone https://github.com/Mel-Turham/VidTube.git
    ```
 2. Navigate to the project directory:
    ```bash
